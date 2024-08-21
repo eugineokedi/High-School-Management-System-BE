@@ -1,0 +1,1 @@
+# Handles CRUD operations for teachers
