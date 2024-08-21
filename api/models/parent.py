@@ -9,5 +9,14 @@ class Parent(db.Model):
   address = db.Column(db.String(255), nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+  def serialize(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'contact_number': self.contact_number,
+      'address': self.address,
+      'user_id': self.user_id
+    }
+
   def __repr__(self):
     return f'<Parent id={self.id}, name={self.name}, contact_number={self.contact_number}, address={self.address}>'

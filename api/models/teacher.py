@@ -11,5 +11,15 @@ class Teacher(db.Model):
   qualification = db.Column(db.String, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
+  def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'subject': self.subject,
+            'hire_date': self.hire_date.strftime('%Y-%m-%d %H:%M:%S'),
+            'qualification': self.qualification,
+            'user_id': self.user_id
+        }
+
   def __repr__(self):
       return f'<Teacher id={self.id}, name={self.name}, subject={self.subject}, hire_date={self.hire_date}, qualification={self.qualification}>'
