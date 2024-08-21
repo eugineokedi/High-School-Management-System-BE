@@ -17,3 +17,4 @@ from .event import Event
 from .enrollment import Enrollmemnt
 from .payment import Payment
 from .disciplineRecord import DisciplineRecord
+from .classSchedule import ClassSchedule
