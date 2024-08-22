@@ -1,9 +1,11 @@
 import os
+from datetime import timedelta
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'supersecretkey')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'jwtsecret')
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
     MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.example.com')
     MAIL_PORT = int(os.getenv('MAIL_PORT', 587))
     MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'true').lower() in ['true', '1']

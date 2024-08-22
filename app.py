@@ -1,11 +1,12 @@
 from flask import Flask
+from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
-from flask_mail import Mail
+from flask_mail import Mail, Message
 from api.routes.auth_routes import LoginResource
 from api.models import db
 from config import Config
-from flask_migrate import Migrate  # Optional, for handling migrations
+from flask_migrate import Migrate 
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -14,9 +15,10 @@ app.config.from_object(Config)
 # Initialize extensions
 db.init_app(app)
 jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 api = Api(app)
 mail = Mail(app)
-migrate = Migrate(app, db)  # Optional, for migrations
+migrate = Migrate(app, db) 
 
 # Add routes
 api.add_resource(LoginResource, '/auth/login')
