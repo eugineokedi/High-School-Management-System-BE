@@ -9,3 +9,9 @@ class AuthLogin(Resource):
 class AuthSignup(Resource):
     def post(self):
         return AuthController.signup(request.get_json())
+
+
+class AuthResetPassword(Resource):
+    def post(self):
+        return AuthController.reset_password(request.get_json())    
+
