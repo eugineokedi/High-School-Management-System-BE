@@ -12,7 +12,7 @@ class DisciplineRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False)
     infraction = db.Column(db.String(255), nullable=False)
-    action_taken = db.Column(db.Enum(ActionEnum), nullable=False)  # Using Enum for predefined actions
+    action_taken = db.Column(db.Enum(ActionEnum), nullable=False) 
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
 
     def __repr__(self):

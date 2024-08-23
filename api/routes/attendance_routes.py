@@ -14,3 +14,6 @@ class AttendanceDetail(Resource):
 
     def put(self, id):
         return AttendanceController.update_attendance(id)
+    
+    def delete(self, id):
+        return AttendanceController.delete_attendance(id)

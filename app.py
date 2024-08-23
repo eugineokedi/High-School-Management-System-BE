@@ -3,10 +3,10 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from flask_mail import Mail, Message
-from api.routes.auth_routes import AuthLogin, AuthSignup
 from api.models import db
 from config import Config
-from flask_migrate import Migrate 
+from flask_migrate import Migrate
+from api.controllers.disciplineRecord_controller import discipline_record_bp
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -20,16 +20,7 @@ api = Api(app)
 mail = Mail(app)
 migrate = Migrate(app, db) 
 
-# Add routes
-api.add_resource(AuthLogin, '/auth/login')
-api.add_resource(AuthSignup, '/auth/signup')
-api.add_resource()
-api.add_resource()
-api.add_resource()
-api.add_resource()
-api.add_resource()
-api.add_resource()
-api.add_resource()
+app.register_blueprint(discipline_record_bp)
 
 if __name__ == '__main__':
     app.run(debug=app.config.get("DEBUG", False))  # Run with debug based on config

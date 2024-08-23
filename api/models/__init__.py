@@ -10,7 +10,7 @@ from .subject import subject
 from .grade import Grade
 from .attendance import Attendance
 from .parent import Parent
-from .klass import Class
+from .class import Class
 from .bookLoan import BookLoan
 from .libraryBook import LibraryBook
 from .event import Event

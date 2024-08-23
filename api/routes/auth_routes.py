@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request, jsonify
-from controllers.auth_controller import AuthController
+from api.controllers.auth_controller import AuthController
 
 class AuthLogin(Resource):
     def post(self):
