@@ -1,6 +1,6 @@
 # Manages grades and report cards
 from flask import Blueprint, request, jsonify
-from . import db
+from api.models import db
 from models import Grade, Student, Class
 from datetime import datetime, timezone
 from sqlalchemy import func

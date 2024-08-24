@@ -1,4 +1,4 @@
-from . import db
+from api.models import db
 
 class Parent(db.Model):
   __tablename__ = 'parents'

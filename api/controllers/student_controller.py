@@ -1,6 +1,7 @@
 # Handles CRUD operations for students
 from flask import Blueprint, request, jsonify
-from models import Student, db
+from api.models import db
+from models import Student
 from datetime import datetime
 
 student_bp = Blueprint('student_bp', __name__)

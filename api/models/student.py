@@ -1,4 +1,4 @@
-from . import db
+from api.models import db
 from datetime import datetime, timezone
 
 class Student(db.Model):

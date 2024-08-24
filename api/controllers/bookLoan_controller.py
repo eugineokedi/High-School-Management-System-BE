@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from . import db
+from api.models import db
 from models.bookLoan import BookLoan, BookLoanEnum
 from datetime import datetime
 

@@ -1,6 +1,7 @@
 # Manages subjects (create, update, delete)
 from flask import Blueprint, jsonify, request
-from models import Subject, db
+from api.models import db
+from models import Subject
 from sqlalchemy.exc import IntegrityError
 
 subject_bp = Blueprint('subject', __name__)

@@ -1,4 +1,4 @@
-from . import db
+from api.models import db
 import enum
 from datetime import datetime
 

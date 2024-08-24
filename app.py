@@ -4,13 +4,18 @@ from flask_jwt_extended import JWTManager
 from flask_restful import Api
 from flask_mail import Mail, Message
 from api.models import db
-from config import Config
+from dotenv import load_dotenv
+from config import get_config
 from flask_migrate import Migrate
-from api.controllers.disciplineRecord_controller import discipline_record_bp
 
 # Initialize Flask app
 app = Flask(__name__)
-app.config.from_object(Config)
+
+# Load environment variables from.env file
+load_dotenv()
+
+# Use the get_config() function to load the correct configuration based on FLASK_ENV
+app.config.from_object(get_config())
 
 # Initialize extensions
 db.init_app(app)
@@ -18,9 +23,7 @@ jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
 api = Api(app)
 mail = Mail(app)
-migrate = Migrate(app, db) 
-
-app.register_blueprint(discipline_record_bp)
+migrate = Migrate(app, db)
 
 if __name__ == '__main__':
-    app.run(debug=app.config.get("DEBUG", False))  # Run with debug based on config
+    app.run(port=5001,debug=app.config.get("DEBUG", False))

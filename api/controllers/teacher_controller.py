@@ -1,6 +1,7 @@
 # Handles CRUD operations for teachers
 from flask import Blueprint, request, jsonify
-from models import Teacher, db
+from api.models import db
+from models import Teacher
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 

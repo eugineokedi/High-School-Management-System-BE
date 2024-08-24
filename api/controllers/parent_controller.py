@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
-from models import Parent, db
+from api.models import db
+from models import Parent
 from sqlalchemy.exc import IntegrityError
 
 parent_bp = Blueprint('parent', __name__)

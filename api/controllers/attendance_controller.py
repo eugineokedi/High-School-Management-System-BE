@@ -1,6 +1,6 @@
 # Handles attendance management
 from flask import Blueprint, request, jsonify
-from . import db
+from api.models import db
 from models import Attendance, StatusEnum
 from datetime import datetime
 
