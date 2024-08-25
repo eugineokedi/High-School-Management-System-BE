@@ -15,7 +15,7 @@ class Student(db.Model, SerializerMixin):
   enrollment_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc) , nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'))
-  event_id = db.Column(db.Interger, db.ForeignKey('events.id'))
+  event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
   # Relationships
   parent = db.relationship('Parent', back_populates='students')
