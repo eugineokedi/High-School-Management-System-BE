@@ -14,6 +14,7 @@ class Student(db.Model):
   enrollment_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc) , nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
   parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'))
+  event_id = db.Column(db.Interger, db.ForeignKey('events.id'))
 
   # Relationships
   parent = db.relationship('Parent', back_populates='students')
@@ -24,6 +25,7 @@ class Student(db.Model):
   grades = db.relationship('Grade', back_populates='student', cascade='all, delete-orphan')
   discipline_records = db.relationship('DisciplineRecord', back_populates='students', cascade='all, delete-orphan')
   subjects = db.relationship('Subject', back_populates='subject', cascade='all, delete-orphan')
+  events = db.relationship('Event', back_populates='student')
 
 
   def __repr__(self):

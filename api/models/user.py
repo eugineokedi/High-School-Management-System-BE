@@ -18,9 +18,9 @@ class User(db.Model):
   role = db.Column(db.Enum(RoleEnum), nullable=False)
 
   # Relationships
-  parent = db.relationship('Parent', back_populates='user', useList=False)
-  teacher = db.relationship('Teacher', back_populates='user', useList=False)
-  student = db.relationship('Student', back_populates='user', useList=False)
+  parent = db.relationship('Parent', back_populates='user', uselist=False)
+  teacher = db.relationship('Teacher', back_populates='user', uselist=False)
+  student = db.relationship('Student', back_populates='user', uselist=False)
 
   def __repr__(self):
       return f'<User id={self.id}, email={self.email}, datetime={self.created_at}, role={self.role.value}>'
