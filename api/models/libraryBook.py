@@ -15,5 +15,8 @@ class LibraryBook(db.Model):
     isbn = db.Column(db.String(13), nullable=False)
     availability = db.Column(db.Enum(AvailabilityEnum), default=AvailabilityEnum.available, nullable=False)
 
+    # Relationships
+    book_loans = db.relationship('BookLoan', back_populates='book', cascade='all, delete-orphan')
+
     def __repr__(self):
         return f'<LibraryBook id={self.id}, title={self.title}, author={self.author}, isbn={self.isbn}, availability={self.availability.value}>'

@@ -8,15 +8,9 @@ class Parent(db.Model):
   contact_number = db.Column(db.String(20), nullable=False)
   address = db.Column(db.String(255), nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-  def serialize(self):
-    return {
-      'id': self.id,
-      'name': self.name,
-      'contact_number': self.contact_number,
-      'address': self.address,
-      'user_id': self.user_id
-    }
+  
+  # Relationships
+  students = db.relationship('Student', back_populates='parent', cascade='all, delete-orphan')
 
   def __repr__(self):
     return f'<Parent id={self.id}, name={self.name}, contact_number={self.contact_number}, address={self.address}>'

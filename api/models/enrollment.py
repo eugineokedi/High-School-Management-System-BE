@@ -25,7 +25,11 @@ class Enrollment(db.Model):
     enrollment_date = db.Column(db.Date, nullable=False)
     grade = db.Column(db.Enum(GradeEnum), nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey('classes.id'), nullable=False)
-    student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+
+    # Relationships
+    student = db.relationship('Student', back_populates='enrollments')
+    class_ = db.relationship('Class', back_populates='enrollments')
 
     def __repr__(self):
         return f'<Enrollment id={self.id}, enrollment_date={self.enrollment_date}, grade={self.grade.value}>'

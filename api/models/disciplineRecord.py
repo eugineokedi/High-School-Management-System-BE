@@ -15,5 +15,8 @@ class DisciplineRecord(db.Model):
     action_taken = db.Column(db.Enum(ActionEnum), nullable=False) 
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
 
+    # Relationships
+    student = db.relationship('Student', back_populates='discipline_records')
+
     def __repr__(self):
         return f'<DisciplineRecord id={self.id}, date={self.date}, infraction={self.infraction}, action_taken={self.action_taken.value}>'

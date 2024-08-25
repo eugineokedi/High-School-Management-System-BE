@@ -10,5 +10,8 @@ class ClassSchedule(db.Model):
     end_time = db.Column(db.Time, nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey('classes.id'), nullable=False)
 
+    # Relationships
+    class_ = db.relationship('Class', back_populates='class_schedules')
+
     def __repr__(self):
         return f'<ClassSchedule id={self.id}, day_of_week={self.day_of_week}, start_time={self.start_time}, end_time={self.end_time}>'

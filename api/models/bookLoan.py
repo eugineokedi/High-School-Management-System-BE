@@ -17,5 +17,9 @@ class BookLoan(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
     book_id = db.Column(db.Integer, db.ForeignKey('library_books.id'), nullable=False)
 
+    # Relationships
+    student = db.relationship('Student', back_populates='book_loans')
+    book = db.relationship('LibraryBook', back_populates='book_loans')
+
     def __repr__(self):
         return f'<BookLoan id={self.id}, borrow_date={self.borrow_date}, return_date={self.return_date}, status={self.status.value}>'

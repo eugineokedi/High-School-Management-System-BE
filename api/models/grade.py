@@ -12,5 +12,9 @@ class Grade(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False, index=True)
     class_id = db.Column(db.Integer, db.ForeignKey('classes.id'), nullable=False, index=True)
 
+    # Relationships
+    student = db.relationship('Student', back_populates='grades')
+    class_ = db.relationship('Class', back_populates='grades')
+
     def __repr__(self):
         return f'<Grade id={self.id}, score={self.score}, date_submitted={self.date_submitted}, updated_at={self.updated_at}, assignment_name={self.assignment_name}>'
