@@ -10,11 +10,11 @@ class Student(db.Model, SerializerMixin):
   last_name = db.Column(db.String, nullable=False)
   admission_number = db.Column(db.Integer, unique=True, nullable=False)
   date_of_birth = db.Column(db.Date, nullable=False)
-  gender = db.Column(db.String, nullable=False)
-  grade_level = db.Column(db.String, nullable=False)
+  gender = db.Column(db.String(10), nullable=False)
+  grade_level = db.Column(db.String(10), nullable=False)
   enrollment_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc) , nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-  parent_id = db.Column(db.Integer, db.ForeignKey('parent.id'))
+  parent_id = db.Column(db.Integer, db.ForeignKey('parents.id'))
   event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
   # Relationships
@@ -22,11 +22,14 @@ class Student(db.Model, SerializerMixin):
   enrollments = db.relationship('Enrollment', back_populates='student', cascade='all, delete-orphan')
   book_loans = db.relationship('BookLoan', back_populates='student', cascade='all, delete-orphan')
   payments = db.relationship('Payment', back_populates='student', cascade='all, delete-orphan')
-  attendance = db.relationship('Attendance', backref='student', cascade='all, delete-orphan')
+  attendance = db.relationship('Attendance', back_populates='student', cascade='all, delete-orphan')
   grades = db.relationship('Grade', back_populates='student', cascade='all, delete-orphan')
-  discipline_records = db.relationship('DisciplineRecord', back_populates='students', cascade='all, delete-orphan')
+  discipline_records = db.relationship('DisciplineRecord', back_populates='student', cascade='all, delete-orphan')
   subjects = db.relationship('Subject', back_populates='subject', cascade='all, delete-orphan')
   events = db.relationship('Event', back_populates='student')
+
+  # Serialize rules
+  serialize_rules = ('-parent', '-event', )
 
 
   def __repr__(self):
