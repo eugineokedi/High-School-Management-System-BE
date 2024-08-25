@@ -26,7 +26,7 @@ class Enrollment(db.Model, SerializerMixin):
     enrollment_date = db.Column(db.Date, nullable=False)
     grade = db.Column(db.Enum(GradeEnum), nullable=False)
     class_id = db.Column(db.Integer, db.ForeignKey('classes.id'), nullable=False)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey('students.id'), nullable=False)
 
     # Relationships
     student = db.relationship('Student', back_populates='enrollments')

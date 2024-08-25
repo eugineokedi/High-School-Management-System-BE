@@ -8,7 +8,7 @@ class Class(db.Model, SerializerMixin):
   class_name = db.Column(db.String(100), nullable=False)
   subject = db.Column(db.String(100), nullable=False)
   schedule = db.Column(db.String(255), nullable=False)
-  teacher_id = db.Column(db.Integer, db.ForeignKey('teacher.id'))
+  teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.id'), nullable=False)
 
   # Relationships
   teacher = db.relationship('Teacher', back_populates='classes')

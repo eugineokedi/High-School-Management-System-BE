@@ -13,13 +13,13 @@ class Student(db.Model, SerializerMixin):
   gender = db.Column(db.String(10), nullable=False)
   grade_level = db.Column(db.String(10), nullable=False)
   enrollment_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc) , nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-  parent_id = db.Column(db.Integer, db.ForeignKey('parents.id'))
-  event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+  user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+  parent_id = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False)
+  event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
 
   # Relationships
   parent = db.relationship('Parent', back_populates='students')
-  enrollments = db.relationship('Enrollment', back_populates='student', cascade='all, delete-orphan')
+  enrollments = db.relationship('Enrollment', back_populates='students', cascade='all, delete-orphan')
   book_loans = db.relationship('BookLoan', back_populates='student', cascade='all, delete-orphan')
   payments = db.relationship('Payment', back_populates='student', cascade='all, delete-orphan')
   attendance = db.relationship('Attendance', back_populates='student', cascade='all, delete-orphan')

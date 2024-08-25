@@ -13,7 +13,7 @@ class Teacher(db.Model, SerializerMixin):
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
   # Relationships
-  classes = db.relationship('Class', back_populates='teacher', cascade='all, delete-orphan')
+  classes = db.relationship('Class', back_populates='teachers', cascade='all, delete-orphan')
 
   def __repr__(self):
       return f'<Teacher id={self.id}, name={self.name}, subject={self.subject}, hire_date={self.hire_date}, qualification={self.qualification}>'
