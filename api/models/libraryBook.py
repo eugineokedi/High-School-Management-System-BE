@@ -1,12 +1,13 @@
 from api.models import db
 import enum
+from sqlalchemy_serializer import SerializerMixin
 
 class AvailabilityEnum(enum.Enum):
     available = 'Available'
     checked_out = 'Checked Out'
     reserved = 'Reserved'
 
-class LibraryBook(db.Model):
+class LibraryBook(db.Model, SerializerMixin):
     __tablename__ = 'library_books'
 
     id = db.Column(db.Integer, primary_key=True)

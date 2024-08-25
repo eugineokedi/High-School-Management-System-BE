@@ -1,5 +1,6 @@
 from api.models import db
 import enum
+from sqlalchemy_serializer import SerializerMixin
 
 class GradeEnum(enum.Enum):
     A = 'A'
@@ -18,7 +19,7 @@ class GradeEnum(enum.Enum):
     Y = 'Y'
     Z = 'Z'
 
-class Enrollment(db.Model):
+class Enrollment(db.Model, SerializerMixin):
     __tablename__ = 'enrollments'
 
     id = db.Column(db.Integer, primary_key=True)

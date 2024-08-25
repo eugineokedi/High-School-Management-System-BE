@@ -1,7 +1,8 @@
 from api.models import db
 from datetime import datetime, timezone
+from sqlalchemy_serializer import SerializerMixin
 
-class Grade(db.Model):
+class Grade(db.Model, SerializerMixin):
     __tablename__ = 'grades'
 
     id = db.Column(db.Integer, primary_key=True)

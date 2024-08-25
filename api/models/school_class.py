@@ -1,6 +1,7 @@
 from api.models import db
+from sqlalchemy_serializer import SerializerMixin
 
-class Class(db.Model):
+class Class(db.Model, SerializerMixin):
   __tablename__ = 'classes'
 
   id = db.Column(db.Integer, primary_key=True)

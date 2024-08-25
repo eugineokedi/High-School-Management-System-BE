@@ -1,13 +1,14 @@
 from api.models import db
 import enum
 from datetime import datetime
+from sqlalchemy_serializer import SerializerMixin
 
 class BookLoanEnum(enum.Enum):
     borrowed = 'borrowed'
     returned = 'returned'
     overdue = 'overdue'
 
-class BookLoan(db.Model):
+class BookLoan(db.Model, SerializerMixin):
     __tablename__ = 'book_loans'
 
     id = db.Column(db.Integer, primary_key=True)

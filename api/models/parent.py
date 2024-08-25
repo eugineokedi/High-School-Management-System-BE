@@ -1,6 +1,7 @@
 from api.models import db
+from sqlalchemy_serializer import SerializerMixin
 
-class Parent(db.Model):
+class Parent(db.Model, SerializerMixin):
   __tablename__ = 'parents'
 
   id = db.Column(db.Integer, primary_key=True)

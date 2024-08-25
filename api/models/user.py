@@ -1,6 +1,7 @@
 from api.models import db
 import enum
 from datetime import datetime, timezone
+from sqlalchemy_serializer import SerializerMixin
 
 class RoleEnum(enum.Enum):
   admin = 'admin'
@@ -8,7 +9,7 @@ class RoleEnum(enum.Enum):
   student = 'student'
   parent = 'parent'
 
-class User(db.Model):
+class User(db.Model, SerializerMixin):
   __tablename__ = 'users'
 
   id = db.Column(db.Integer, primary_key=True)

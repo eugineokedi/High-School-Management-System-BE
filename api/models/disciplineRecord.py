@@ -1,12 +1,13 @@
 from api.models import db
 import enum
+from sqlalchemy_serializer import SerializerMixin
 
 class ActionEnum(enum.Enum):
     Suspended = 'Suspended'
     Expelled = 'Expelled'
     Punished = 'Punished'
 
-class DisciplineRecord(db.Model):
+class DisciplineRecord(db.Model, SerializerMixin):
     __tablename__ = 'discipline_records'
 
     id = db.Column(db.Integer, primary_key=True)

@@ -1,7 +1,8 @@
 from api.models import db
+from sqlalchemy_serializer import SerializerMixin
 
 
-class ClassSchedule(db.Model):
+class ClassSchedule(db.Model, SerializerMixin):
     __tablename__ = 'class_schedules'
 
     id = db.Column(db.Integer, primary_key=True)

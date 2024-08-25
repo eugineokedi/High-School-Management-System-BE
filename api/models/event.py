@@ -1,7 +1,8 @@
 from api.models import db
 from datetime import datetime
+from sqlalchemy_serializer import SerializerMixin
 
-class Event(db.Model):
+class Event(db.Model, SerializerMixin):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)

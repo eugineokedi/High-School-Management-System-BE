@@ -1,12 +1,13 @@
 from api.models import db
 import enum
+from sqlalchemy_serializer import SerializerMixin
 
 class StatusEnum(enum.Enum):
     present = 'present'
     absent = 'absent'
     late = 'late'
 
-class Attendance(db.Model):
+class Attendance(db.Model, SerializerMixin):
     __tablename__ = 'attendances'
 
     id = db.Column(db.Integer, primary_key=True)

@@ -1,7 +1,8 @@
 from api.models import db
 from datetime import datetime, timezone
+from sqlalchemy_serializer import SerializerMixin
 
-class Teacher(db.Model):
+class Teacher(db.Model, SerializerMixin):
   __tablename__ = 'teachers'
 
   id = db.Column(db.Integer, primary_key=True)

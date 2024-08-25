@@ -1,6 +1,7 @@
 from api.models import db
 import enum
 from datetime import datetime, timezone
+from sqlalchemy_serializer import SerializerMixin
 
 class PaymentMethodEnum(enum.Enum):
     mpesa = 'M-pesa'
@@ -12,7 +13,7 @@ class PaymentStatusEnum(enum.Enum):
     pending = 'Pending'
     not_paid = 'Not paid'
 
-class Payment(db.Model):
+class Payment(db.Model, SerializerMixin):
     __tablename__ = 'payments'
 
     id = db.Column(db.Integer, primary_key=True)

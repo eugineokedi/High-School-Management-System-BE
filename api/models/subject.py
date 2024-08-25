@@ -1,6 +1,7 @@
 from api.models import db
+from sqlalchemy_serializer import SerializerMixin
 
-class Subject(db.Model):
+class Subject(db.Model, SerializerMixin):
   __tablename__ = 'subjects'
 
   id = db.Column(db.Integer, primary_key=True)
