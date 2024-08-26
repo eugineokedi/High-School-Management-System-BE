@@ -12,6 +12,7 @@ class PaymentStatusEnum(enum.Enum):
     paid = 'Paid'
     pending = 'Pending'
     not_paid = 'Not paid'
+    
 
 class Payment(db.Model, SerializerMixin):
     __tablename__ = 'payments'

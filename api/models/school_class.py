@@ -7,7 +7,6 @@ class Class(db.Model, SerializerMixin):
   id = db.Column(db.Integer, primary_key=True)
   class_name = db.Column(db.String(100), nullable=False)
   subject = db.Column(db.String(100), nullable=False)
-  schedule = db.Column(db.String(255), nullable=False)
   teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.id'), nullable=False)
 
   # Relationships
@@ -18,4 +17,4 @@ class Class(db.Model, SerializerMixin):
   class_schedule = db.relationship('ClassSchedule', back_populates='class', cascade='all, delete-orphan')
 
   def __repr__(self):
-    return f'<Class id={self.id}, class_name={self.class_name}, subject={self.subject}, schedule={self.schedule}>'
+    return f'<Class id={self.id}, class_name={self.class_name}, subject={self.subject}>'
