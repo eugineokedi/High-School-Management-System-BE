@@ -19,14 +19,14 @@ class Student(db.Model, SerializerMixin):
 
   # Relationships
   parent = db.relationship('Parent', back_populates='students')
-  enrollments = db.relationship('Enrollment', back_populates='students', cascade='all, delete-orphan')
+  enrollments = db.relationship('Enrollment', back_populates='student', cascade='all, delete-orphan')
   book_loans = db.relationship('BookLoan', back_populates='student', cascade='all, delete-orphan')
   payments = db.relationship('Payment', back_populates='student', cascade='all, delete-orphan')
   attendance = db.relationship('Attendance', back_populates='student', cascade='all, delete-orphan')
   grades = db.relationship('Grade', back_populates='student', cascade='all, delete-orphan')
   discipline_records = db.relationship('DisciplineRecord', back_populates='student', cascade='all, delete-orphan')
-  subjects = db.relationship('Subject', back_populates='subject', cascade='all, delete-orphan')
   events = db.relationship('Event', back_populates='student')
+  user = db.relationship('User', back_populates='student', uselist=False)
 
   # Serialize rules
   serialize_rules = ('-parent', '-event', )

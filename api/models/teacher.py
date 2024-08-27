@@ -14,6 +14,7 @@ class Teacher(db.Model, SerializerMixin):
 
   # Relationships
   classes = db.relationship('Class', back_populates='teachers', cascade='all, delete-orphan')
+  user = db.relationship('User', back_populates='teacher', uselist=False)
 
   def __repr__(self):
       return f'<Teacher id={self.id}, name={self.name}, subject={self.subject}, hire_date={self.hire_date}, qualification={self.qualification}>'

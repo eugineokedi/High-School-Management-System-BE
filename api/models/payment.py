@@ -4,14 +4,14 @@ from datetime import datetime, timezone
 from sqlalchemy_serializer import SerializerMixin
 
 class PaymentMethodEnum(enum.Enum):
-    mpesa = 'M-pesa'
-    credit_card = 'Credit card'
-    bank_transfer = 'Bank transfer'
+    M_pesa = 'M_pesa'
+    Credit_card = 'Credit_card'
+    Bank_transfer = 'Bank_transfer'
 
 class PaymentStatusEnum(enum.Enum):
-    paid = 'Paid'
-    pending = 'Pending'
-    not_paid = 'Not paid'
+    Paid = 'Paid'
+    Pending = 'Pending'
+    Not_paid = 'Not_paid'
     
 
 class Payment(db.Model, SerializerMixin):

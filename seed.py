@@ -1,6 +1,13 @@
-from config import app, bcrypt
-from api.models import User, Teacher, Student, Parent, Class, Subject, Payment, LibraryBook, DisciplineRecord, Enrollment, Event, BookLoan, Attendance, Grade, ActionEnum, db, GradeEnum, BookLoanEnum, StatusEnum
+from app import app, bcrypt
+from api.models import User, Teacher, Student, Parent, Class, Subject, Payment, LibraryBook, DisciplineRecord, Enrollment, Event, BookLoan, Attendance, Grade, db
 from sqlalchemy.exc import IntegrityError
+from api.models.disciplineRecord import ActionEnum
+from api.models.enrollment import GradeEnum
+from api.models.bookLoan import BookLoanEnum
+from api.models.attendance import StatusEnum
+from api.models.libraryBook import AvailabilityEnum
+from api.models.payment import PaymentStatusEnum, PaymentMethodEnum
+from api.models.user import RoleEnum
 from datetime import datetime, timezone
 
 def hash_password(password):
@@ -26,41 +33,41 @@ def seed_data():
 
     # Add Users
     users = [
-      User(email='cyrusmatheri@gmail.com', password_hash=hash_password('password@123'), role='teacher'),
-      User(email='lukoritoalexx@gmail.com', password_hash=hash_password('password@123'), role='teacher'),
-      User(email='clintonkibet@gmail.com', password_hash=hash_password('password@123'), role='teacher'),
-      User(email='edwardmwangi@gmail.com', password_hash=hash_password('password@123'), role='teacher'),
-      User(email='josephwilliams@gmail.com', password_hash=hash_password('password@123'), role='parent'),
-      User(email='sarahkim@gmail.com', password_hash=hash_password('password@123'), role='parent'),
-      User(email='davidkim@gmail.com', password_hash=hash_password('password@123'), role='parent'),
-      User(email='danielkim@gmail.com', password_hash=hash_password('password@123'), role='student'),
-      User(email='julietkim@gmail.com', password_hash=hash_password('password@123'), role='student'),
-      User(email='georgekim@gmail.com', password_hash=hash_password('password@123'), role='student'),
-      User(email='johnnykim@gmail.com', password_hash=hash_password('password@123'), role='student'),
-      User(email='marykim@gmail.com', password_hash=hash_password('password@123'), role='student'),
-      User(email='michaelkim@gmail.com', password_hash=hash_password('password@123'), role='student'),
-      User(email='kevinkim@gmail.com', password_hash=hash_password('password@123'), role='student')
+      User(email='cyrusmatheri@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.teacher),
+      User(email='lukoritoalexx@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.teacher),
+      User(email='clintonkibet@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.teacher),
+      User(email='edwardmwangi@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.teacher),
+      User(email='josephwilliams@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.parent),
+      User(email='sarahkim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.parent),
+      User(email='davidkim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.parent),
+      User(email='danielkim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.student),
+      User(email='julietkim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.student),
+      User(email='georgekim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.student),
+      User(email='johnnykim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.student),
+      User(email='marykim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.student),
+      User(email='michaelkim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.student),
+      User(email='kevinkim@gmail.com', password_hash=hash_password('password@123'), role=RoleEnum.student)
     ]
     db.session.add_all(users)
 
     # Add Teachers
     teachers = [
-      Teacher(name='Mr. Matheri', subject='Mathematics', hire_date=datetime(2015, 1, 1), qualification='BSc', user_id=1),
-      Teacher(name='Mr. Alex', subject='Biology', hire_date=datetime(2018, 1, 1), qualification='MBA', user_id=2),
-      Teacher(name='Mr. Clinton', subject='English', hire_date=datetime(2017, 1, 1), qualification='PhD', user_id=3),
-      Teacher(name='Ms. Mwangi', subject='History', hire_date=datetime(2016, 1, 1), qualification='MBA', user_id=4)
+      Teacher(name='Mr. Matheri', subject='Mathematics', qualification='BSc', user_id=1),
+      Teacher(name='Mr. Alex', subject='Biology', qualification='MBA', user_id=2),
+      Teacher(name='Mr. Clinton', subject='English', qualification='PhD', user_id=3),
+      Teacher(name='Ms. Mwangi', subject='History', qualification='MBA', user_id=4)
     ]
     db.session.add_all(teachers)
 
     # Add Students
     students = [
-      Student(first_name='Dabiel', last_name='Kim', admission_number='855', gender='Male', date_of_birth=datetime(2000, 1, 1), grade_level=12, user_id=8, parent_id=1, event_id=1),
-      Student(first_name='Juliet', last_name='Kim', admission_number='856', gender='Female', date_of_birth=datetime(2001, 1, 1), grade_level=11, user_id=9, parent_id=1, event_id=3),
-      Student(first_name='George', last_name='Kim', admission_number='857', gender='Male', date_of_birth=datetime(2002, 1, 1), grade_level=10, user_id=10, parent_id=2, event_id=2),
-      Student(first_name='johnny', last_name='Kim', admission_number='858', gender='Male', date_of_birth=datetime(2003, 1, 1), grade_level=9, user_id=11, parent_id=2, event_id=1),
-      Student(first_name='Mary', last_name='Kim', admission_number='859', gender='Female', date_of_birth=datetime(2004, 1, 1), grade_level=8, user_id=12, parent_id=3, event_id=3),
-      Student(first_name='Michael', last_name='Kim', admission_number='860', gender='Male', date_of_birth=datetime(2005, 1, 1), grade_level=7, user_id=13,  parent_id=3, event_id=2),
-      Student(first_name='Kevin', last_name='Kim', admission_number='861', gender='Male', date_of_birth=datetime(2006, 1, 1), grade_level=6, user_id=14, parent_id=3, event_id=1)
+      Student(first_name='Dabiel', last_name='Kim', admission_number='855', date_of_birth=datetime(2000, 1, 1), gender='Male', grade_level=12, user_id=8, parent_id=1, event_id=1),
+      Student(first_name='Juliet', last_name='Kim', admission_number='856', date_of_birth=datetime(2001, 1, 1), gender='Female', grade_level=11, user_id=9, parent_id=1, event_id=3),
+      Student(first_name='George', last_name='Kim', admission_number='857', date_of_birth=datetime(2002, 1, 1), gender='Male', grade_level=10, user_id=10, parent_id=2, event_id=2),
+      Student(first_name='johnny', last_name='Kim', admission_number='858', date_of_birth=datetime(2003, 1, 1), gender='Male', grade_level=9, user_id=11, parent_id=2, event_id=1),
+      Student(first_name='Mary', last_name='Kim', admission_number='859', date_of_birth=datetime(2004, 1, 1), gender='Female', grade_level=8, user_id=12, parent_id=3, event_id=3),
+      Student(first_name='Michael', last_name='Kim', admission_number='860', date_of_birth=datetime(2005, 1, 1), gender='Male', grade_level=7, user_id=13,  parent_id=3, event_id=2),
+      Student(first_name='Kevin', last_name='Kim', admission_number='861', date_of_birth=datetime(2006, 1, 1), gender='Male', grade_level=6, user_id=14, parent_id=3, event_id=1)
     ]
     db.session.add_all(students)
 
@@ -72,45 +79,45 @@ def seed_data():
     ]
     db.session.add_all(parents)
 
-    # Add Classes*
+    # Add Classes
     classes = [
-        Class(class_name='Form 1W', subject='Mathematics', teacher_id=1),
-        Class(class_name='Form 2X', subject='Biology', teacher_id=2),
-        Class(class_name='Form 3Y', subject='English', teacher_id=3),
-        Class(class_name='Form 4Z', subject='History', teacher_id=4)
+        Class(class_name='Form 1W', teacher_id=1),
+        Class(class_name='Form 2X', teacher_id=2),
+        Class(class_name='Form 3Y', teacher_id=3),
+        Class(class_name='Form 4Z', teacher_id=4)
     ]
     db.session.add_all(classes)
 
-    # Add Subjects*
+    # Add Subjects
     subjects = [
-        Subject(subject_name='Mathematics', class_id=1),
-        Subject(subject_name='Biology', class_id=2),
-        Subject(subject_name='English', class_id=3),
-        Subject(subject_name='History', class_id=4)
+        Subject(subject_name='Mathematics', description='An exploration of numbers, equations, and problem-solving techniques.', class_id=1),
+        Subject(subject_name='Biology', description='Study of living organisms, including their structure, function, and growth.', class_id=2),
+        Subject(subject_name='English', description='Focus on reading, writing, and literature analysis, enhancing communication skills.', class_id=3),
+        Subject(subject_name='History', description='A survey of past events and civilizations, and their impact on the modern world.', class_id=4)
     ] 
     db.session.add_all(subjects)
 
     # Add Payments
     payments = [
-        Payment(amount=30000.00, amount_due=24000.00, payment_date=datetime(2022, 1, 1), status='paid', student_id=8),
-        Payment(amount=11500.00, amount_due=42500.00, payment_date=datetime(2022, 2, 1), status='paid', student_id=9),
-        Payment(amount=22000.00, amount_due=34000.00, payment_date=datetime(2022, 3, 1), status='paid', student_id=10),
-        Payment(amount=35000.00, amount_due=19000.00, payment_date=datetime(2022, 4, 1), status='paid', student_id=11),
-        Payment(amount=0.00, amount_due=54000.00, payment_date=datetime(2022, 5, 1), status='Not paid', student_id=12),
-        Payment(amount=45700.00, amount_due=8300.00, payment_date=datetime(2022, 6, 1), status='paid', student_id=13),
-        Payment(amount=38000.00, amount_due=16000.00, payment_date=datetime(2023, 4, 1), status='paid', student_id= 14)
+        Payment(amount=30000.00, amount_due=24000.00, payment_date=datetime(2022, 1, 1), payment_method=PaymentMethodEnum.M_pesa, status=PaymentStatusEnum.Paid, student_id=8),
+        Payment(amount=11500.00, amount_due=42500.00, payment_date=datetime(2022, 2, 1), payment_method=PaymentMethodEnum.Credit_card, status=PaymentStatusEnum.Paid, student_id=9),
+        Payment(amount=22000.00, amount_due=34000.00, payment_date=datetime(2022, 3, 1), payment_method=PaymentMethodEnum.Bank_transfer, status=PaymentStatusEnum.Paid, student_id=10),
+        Payment(amount=35000.00, amount_due=19000.00, payment_date=datetime(2022, 4, 1), payment_method=PaymentMethodEnum.Bank_transfer, status=PaymentStatusEnum.Paid, student_id=11),
+        Payment(amount=0.00, amount_due=54000.00, payment_date=datetime(2022, 5, 1), payment_method=PaymentMethodEnum.Credit_card, status=PaymentStatusEnum.Not_paid, student_id=12),
+        Payment(amount=45700.00, amount_due=8300.00, payment_date=datetime(2022, 6, 1), payment_method=PaymentMethodEnum.M_pesa, status=PaymentStatusEnum.Paid, student_id=13),
+        Payment(amount=38000.00, amount_due=16000.00, payment_date=datetime(2023, 4, 1), payment_method=PaymentMethodEnum.M_pesa, status=PaymentStatusEnum.Paid, student_id= 14)
     ]
     db.session.add_all(payments)
 
     # Add LibraryBook
     library_books = [
-       LibraryBook(title='Mathematics Book 1', author='Kenya Literature Bureau', isbn='9780060935467', availability='Available'),
-       LibraryBook(title='English Book 2', author='Kenya Literature Bureau', isbn='9780060935468', availability='Borrowed'),
-       LibraryBook(title='History Book 3', author='Kenya Literature Bureau', isbn='9780060935469', availability='Available'),
-       LibraryBook(title='Geography Book 4', author='Kenya Literature Bureau', isbn='9780060935470', availability='Available'),
-       LibraryBook(title='Kiswahili Book 3', author='Kenya Literature Bureau', isbn='9780060935471', availability='Borrowed'),
-       LibraryBook(title='The River and The Source', author='Margaret Ogola', isbn='9780060935472', availability='Reserved'),
-       LibraryBook(title='Damu Nyeusi', author='Ken Walibora', isbn='9780060935473', availability='Borrowed')
+       LibraryBook(title='Mathematics Book 1', author='Kenya Literature Bureau', isbn='9780060935467', availability=AvailabilityEnum.Available),
+       LibraryBook(title='English Book 2', author='Kenya Literature Bureau', isbn='9780060935468', availability=AvailabilityEnum.Available),
+       LibraryBook(title='History Book 3', author='Kenya Literature Bureau', isbn='9780060935469', availability=AvailabilityEnum.Checked_out),
+       LibraryBook(title='Geography Book 4', author='Kenya Literature Bureau', isbn='9780060935470', availability=AvailabilityEnum.Checked_out),
+       LibraryBook(title='Kiswahili Book 3', author='Kenya Literature Bureau', isbn='9780060935471', availability=AvailabilityEnum.Available),
+       LibraryBook(title='The River and The Source', author='Margaret Ogola', isbn='9780060935472', availability=AvailabilityEnum.Reserved),
+       LibraryBook(title='Damu Nyeusi', author='Ken Walibora', isbn='9780060935473', availability=AvailabilityEnum.Reserved)
     ]
     db.session.add_all(library_books)
 

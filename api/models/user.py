@@ -4,7 +4,6 @@ from datetime import datetime, timezone
 from sqlalchemy_serializer import SerializerMixin
 
 class RoleEnum(enum.Enum):
-  admin = 'admin'
   teacher = 'teacher'
   student = 'student'
   parent = 'parent'

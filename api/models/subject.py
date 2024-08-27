@@ -5,12 +5,13 @@ class Subject(db.Model, SerializerMixin):
   __tablename__ = 'subjects'
 
   id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(100), nullable=False)
+  subject_name = db.Column(db.String(100), nullable=False)
   description = db.Column(db.String(255), nullable=False)
-  student_id = db.Column(db.Integer, db.ForeignKey('students.id'))
+  class_id = db.Column(db.Integer, db.ForeignKey('classes.id'), nullable=False)
 
   # Relationships
-  student = db.relationship('Student', back_populates='subjects')
+  classes = db.relationship('Class', back_populates='subjects')
+  enrollments = db.relationship('Enrollment', back_populates='subject', cascade='all, delete-orphan')
   
   def __repr__(self):
     return f'<Subject id={self.id}, name={self.name}, description={self.description}>'

@@ -3,9 +3,9 @@ import enum
 from sqlalchemy_serializer import SerializerMixin
 
 class AvailabilityEnum(enum.Enum):
-    available = 'Available'
-    checked_out = 'Checked Out'
-    reserved = 'Reserved'
+    Available = 'Available'
+    Checked_out = 'Checked Out'
+    Reserved = 'Reserved'
 
 class LibraryBook(db.Model, SerializerMixin):
     __tablename__ = 'library_books'
@@ -14,7 +14,7 @@ class LibraryBook(db.Model, SerializerMixin):
     title = db.Column(db.String(100), nullable=False)
     author = db.Column(db.String(100), nullable=False)
     isbn = db.Column(db.String(13), nullable=False)
-    availability = db.Column(db.Enum(AvailabilityEnum), default=AvailabilityEnum.available, nullable=False)
+    availability = db.Column(db.Enum(AvailabilityEnum), default=AvailabilityEnum.Available, nullable=False)
 
     # Relationships
     book_loans = db.relationship('BookLoan', back_populates='book', cascade='all, delete-orphan')

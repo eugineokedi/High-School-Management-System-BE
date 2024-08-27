@@ -1,8 +1,8 @@
 """Initial migration
 
-Revision ID: caa2fc396096
+Revision ID: 5a7140f8f1db
 Revises: 
-Create Date: 2024-08-25 21:30:27.796892
+Create Date: 2024-08-27 20:24:53.065092
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'caa2fc396096'
+revision = '5a7140f8f1db'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,7 +37,7 @@ def upgrade():
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('author', sa.String(length=100), nullable=False),
     sa.Column('isbn', sa.String(length=13), nullable=False),
-    sa.Column('availability', sa.Enum('available', 'checked_out', 'reserved', name='availabilityenum'), nullable=False),
+    sa.Column('availability', sa.Enum('Available', 'Checked_out', 'Reserved', name='availabilityenum'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
@@ -52,6 +52,7 @@ def upgrade():
     op.create_table('parents',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
+    sa.Column('occupation', sa.String(length=100), nullable=False),
     sa.Column('contact_number', sa.String(length=20), nullable=False),
     sa.Column('address', sa.String(length=255), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -71,8 +72,6 @@ def upgrade():
     op.create_table('classes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('class_name', sa.String(length=100), nullable=False),
-    sa.Column('subject', sa.String(length=100), nullable=False),
-    sa.Column('schedule', sa.String(length=255), nullable=False),
     sa.Column('teacher_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['teacher_id'], ['teachers.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -134,16 +133,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['student_id'], ['students.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('enrollments',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('enrollment_date', sa.Date(), nullable=False),
-    sa.Column('grade', sa.Enum('A', 'A_minus', 'B_plus', 'B', 'B_minus', 'C_plus', 'C', 'C_minus', 'D_plus', 'D', 'D_minus', 'F', 'X', 'Y', 'Z', name='gradeenum'), nullable=False),
-    sa.Column('class_id', sa.Integer(), nullable=False),
-    sa.Column('student_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['class_id'], ['classes.id'], ),
-    sa.ForeignKeyConstraint(['student_id'], ['students.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('grades',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('score', sa.Integer(), nullable=False),
@@ -165,18 +154,30 @@ def upgrade():
     sa.Column('amount', sa.Float(), nullable=False),
     sa.Column('amount_due', sa.Float(), nullable=False),
     sa.Column('payment_date', sa.DateTime(), nullable=False),
-    sa.Column('payment_method', sa.Enum('mpesa', 'credit_card', 'bank_transfer', name='paymentmethodenum'), nullable=False),
-    sa.Column('status', sa.Enum('paid', 'pending', 'not_paid', name='paymentstatusenum'), nullable=False),
+    sa.Column('payment_method', sa.Enum('M_pesa', 'Credit_card', 'Bank_transfer', name='paymentmethodenum'), nullable=False),
+    sa.Column('status', sa.Enum('Paid', 'Pending', 'Not_paid', name='paymentstatusenum'), nullable=False),
     sa.Column('student_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['student_id'], ['students.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('subjects',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('subject_name', sa.String(length=100), nullable=False),
     sa.Column('description', sa.String(length=255), nullable=False),
-    sa.Column('student_id', sa.Integer(), nullable=True),
+    sa.Column('class_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['class_id'], ['classes.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('enrollments',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('enrollment_date', sa.Date(), nullable=False),
+    sa.Column('grade', sa.Enum('A', 'A_minus', 'B_plus', 'B', 'B_minus', 'C_plus', 'C', 'C_minus', 'D_plus', 'D', 'D_minus', 'F', 'X', 'Y', 'Z', name='gradeenum'), nullable=False),
+    sa.Column('class_id', sa.Integer(), nullable=False),
+    sa.Column('student_id', sa.Integer(), nullable=False),
+    sa.Column('subject_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['class_id'], ['classes.id'], ),
     sa.ForeignKeyConstraint(['student_id'], ['students.id'], ),
+    sa.ForeignKeyConstraint(['subject_id'], ['subjects.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
@@ -184,6 +185,7 @@ def upgrade():
 
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
+    op.drop_table('enrollments')
     op.drop_table('subjects')
     op.drop_table('payments')
     with op.batch_alter_table('grades', schema=None) as batch_op:
@@ -191,7 +193,6 @@ def downgrade():
         batch_op.drop_index(batch_op.f('ix_grades_class_id'))
 
     op.drop_table('grades')
-    op.drop_table('enrollments')
     op.drop_table('discipline_records')
     op.drop_table('class_schedules')
     op.drop_table('book_loans')

@@ -15,7 +15,7 @@ class Grade(db.Model, SerializerMixin):
 
     # Relationships
     student = db.relationship('Student', back_populates='grades')
-    class_ = db.relationship('Class', back_populates='grades')
+    classes = db.relationship('Class', back_populates='grades')
 
     def __repr__(self):
         return f'<Grade id={self.id}, score={self.score}, date_submitted={self.date_submitted}, updated_at={self.updated_at}, assignment_name={self.assignment_name}>'
